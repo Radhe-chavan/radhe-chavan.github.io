@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bug Bounty | Indrajit Chavan</title>
+  <link rel="stylesheet" href="assets/style.css"/>
+  <style>
+    .bb-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-bottom:2px; }
+    .bb-stat {
+      background:var(--bg2); border:1px solid var(--border);
+      padding:28px; text-align:center;
+    }
+    .bb-stat-n {
+      font-family:var(--display); font-size:32px; font-weight:900;
+      color:var(--red); display:block; line-height:1;
+      text-shadow:0 0 20px var(--red-glow);
+    }
+    .bb-stat-l { font-family:var(--mono); font-size:10px; color:var(--muted); letter-spacing:2px; margin-top:6px; display:block; }
+
+    .findings-list { display:flex; flex-direction:column; gap:2px; }
+
+    .finding-card {
+      background:var(--bg2); border:1px solid var(--border);
+      padding:28px 32px; display:grid; grid-template-columns:1fr auto;
+      align-items:start; gap:24px; transition:all .3s;
+    }
+    .finding-card:hover { background:var(--bg3); border-color:var(--border-h); }
+
+    .finding-type { font-family:var(--mono); font-size:10px; color:var(--red); letter-spacing:3px; margin-bottom:8px; }
+    .finding-title { font-family:var(--display); font-size:16px; font-weight:700; color:#fff; letter-spacing:1px; margin-bottom:8px; }
+    .finding-desc { font-size:14px; color:var(--muted2); line-height:1.7; max-width:600px; }
+
+    .finding-meta { display:flex; flex-direction:column; align-items:flex-end; gap:10px; }
+
+    .sev-critical { font-family:var(--mono); font-size:10px; letter-spacing:2px; color:#ff2244; }
+    .sev-high     { font-family:var(--mono); font-size:10px; letter-spacing:2px; color:#ff6622; }
+    .sev-medium   { font-family:var(--mono); font-size:10px; letter-spacing:2px; color:#ffaa22; }
+    .sev-low      { font-family:var(--mono); font-size:10px; letter-spacing:2px; color:#22ff88; }
+
+    .disclosure-note {
+      background:rgba(255,34,68,.05); border:1px solid rgba(255,34,68,.15);
+      padding:20px 28px; margin-top:2px;
+      font-family:var(--mono); font-size:11px; color:var(--muted2); line-height:1.9; letter-spacing:1px;
+    }
+    .disclosure-note strong { color:var(--red); font-weight:normal; }
+
+    .platforms-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:2px; }
+    .platform-card {
+      background:var(--bg2); border:1px solid var(--border);
+      padding:24px 28px; display:flex; gap:16px; align-items:center;
+      transition:all .3s;
+    }
+    .platform-card:hover { border-color:var(--border-h); background:var(--bg3); }
+    .platform-icon { font-size:28px; flex-shrink:0; }
+    .platform-name { font-family:var(--mono); font-size:12px; color:var(--text); letter-spacing:2px; }
+    .platform-desc { font-size:13px; color:var(--muted); margin-top:4px; }
+
+    @media(max-width:700px){
+      .bb-stats{grid-template-columns:repeat(2,1fr);}
+      .finding-card{grid-template-columns:1fr;}
+      .finding-meta{align-items:flex-start;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">INDRAJIT_CHAVAN</a>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="skills.html">SKILLS</a></li>
+    <li><a href="projects.html">PROJECTS</a></li>
+    <li><a href="experience.html">EXPERIENCE</a></li>
+    <li><a href="certs.html">CERTS</a></li>
+    <li><a href="bugbounty.html">BUG BOUNTY</a></li>
+    <li><a href="contact.html">CONTACT</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-status"><span class="status-dot"></span>AVAILABLE_FOR_HIRE</div>
+  </div>
+</nav>
+
+<main class="page-main">
+
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="index.html">HOME</a> <span>/</span> BUG BOUNTY</div>
+    <h1 class="page-title">BUG BOUNTY <span>RESEARCH</span></h1>
+    <p class="page-subtitle">// RESPONSIBLE DISCLOSURE // VALID FINDINGS // ALL DETAILS ANONYMISED</p>
+  </div>
+
+  <!-- STATS -->
+  <section class="content-section">
+    <div class="bb-stats">
+      <div class="bb-stat reveal"><span class="bb-stat-n">✓</span><span class="bb-stat-l">Valid Reports</span></div>
+      <div class="bb-stat reveal"><span class="bb-stat-n">5+</span><span class="bb-stat-l">Vulnerability Types</span></div>
+      <div class="bb-stat reveal"><span class="bb-stat-n">2+</span><span class="bb-stat-l">Programs</span></div>
+      <div class="bb-stat reveal"><span class="bb-stat-n">↑</span><span class="bb-stat-l">Growing</span></div>
+    </div>
+
+    <div class="disclosure-note">
+      <strong>// DISCLOSURE POLICY</strong> — All findings below are anonymised. No client names, domains, IPs, or screenshots with identifiable information are shared. Responsible disclosure followed for all reports. Details shared only at a conceptual level to demonstrate methodology.
+    </div>
+  </section>
+
+  <!-- FINDINGS -->
+  <section class="content-section alt">
+    <div class="section-label">// HIGHLIGHT FINDINGS</div>
+
+    <div class="findings-list">
+
+      <div class="finding-card reveal">
+        <div>
+          <div class="finding-type">// XSS — STORED</div>
+          <div class="finding-title">Stored Cross-Site Scripting in User Profile Input</div>
+          <div class="finding-desc">
+            Identified stored XSS vulnerability in a user profile field that lacked output encoding. 
+            Crafted payload persisted in the database and executed in victim context. 
+            Demonstrated potential for session hijacking and phishing via DOM manipulation.
+          </div>
+          <div class="chips" style="margin-top:14px;">
+            <span class="chip">XSS</span><span class="chip">STORED</span>
+            <span class="chip">SESSION HIJACK</span><span class="chip muted">RESOLVED</span>
+          </div>
+        </div>
+        <div class="finding-meta">
+          <span class="sev-medium">◆ MEDIUM</span>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--muted);">PRIVATE PROGRAM</span>
+        </div>
+      </div>
+
+      <div class="finding-card reveal">
+        <div>
+          <div class="finding-type">// IDOR — HORIZONTAL PRIVILEGE ESCALATION</div>
+          <div class="finding-title">Insecure Direct Object Reference in API Endpoint</div>
+          <div class="finding-desc">
+            Discovered IDOR in a REST API endpoint exposing user data by incrementing numeric IDs. 
+            Unauthenticated attacker could access sensitive data of other users. 
+            No authorisation check present on server-side.
+          </div>
+          <div class="chips" style="margin-top:14px;">
+            <span class="chip">IDOR</span><span class="chip">API</span>
+            <span class="chip">ACCESS CONTROL</span><span class="chip muted">RESOLVED</span>
+          </div>
+        </div>
+        <div class="finding-meta">
+          <span class="sev-high">◆ HIGH</span>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--muted);">PUBLIC PROGRAM</span>
+        </div>
+      </div>
+
+      <div class="finding-card reveal">
+        <div>
+          <div class="finding-type">// AUTHENTICATION — BYPASS</div>
+          <div class="finding-title">Authentication Bypass via Parameter Manipulation</div>
+          <div class="finding-desc">
+            Found broken authentication flaw where server-side session validation could be bypassed 
+            by modifying a role parameter in the request. Allowed privilege escalation from 
+            standard user to admin-level access.
+          </div>
+          <div class="chips" style="margin-top:14px;">
+            <span class="chip">AUTH BYPASS</span><span class="chip">PRIVILEGE ESC</span>
+            <span class="chip">BROKEN AUTH</span><span class="chip muted">RESOLVED</span>
+          </div>
+        </div>
+        <div class="finding-meta">
+          <span class="sev-high">◆ HIGH</span>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--muted);">PRIVATE PROGRAM</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PLATFORMS -->
+  <section class="content-section">
+    <div class="section-label">// PLATFORMS</div>
+    <div class="platforms-grid">
+      <div class="platform-card reveal">
+        <span class="platform-icon">🏹</span>
+        <div>
+          <div class="platform-name">HackerOne</div>
+          <div class="platform-desc">Public &amp; private programs</div>
+        </div>
+      </div>
+      <div class="platform-card reveal">
+        <span class="platform-icon">🐛</span>
+        <div>
+          <div class="platform-name">Bugcrowd</div>
+          <div class="platform-desc">Web application testing</div>
+        </div>
+      </div>
+      <div class="platform-card reveal">
+        <span class="platform-icon">🔬</span>
+        <div>
+          <div class="platform-name">PortSwigger Academy</div>
+          <div class="platform-desc">All SQLi labs completed</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>© 2026 <span>INDRAJIT CHAVAN</span></span>
+  <span>PUNE, INDIA &nbsp;|&nbsp; <span>indrajitchavan7522@gmail.com</span></span>
+</footer>
+<script src="assets/main.js"></script>
+</body>
+</html>

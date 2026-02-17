@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Certifications | Indrajit Chavan</title>
+  <link rel="stylesheet" href="assets/style.css"/>
+  <style>
+    .cert-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:2px; }
+
+    .cert-card {
+      background:var(--bg2); border:1px solid var(--border);
+      padding:36px; position:relative; overflow:hidden;
+      transition:all .3s;
+    }
+    .cert-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:2px;
+      background:linear-gradient(90deg,var(--red),transparent);
+      transform:scaleX(0); transition:transform .4s; transform-origin:left;
+    }
+    .cert-card:hover { background:var(--bg3); border-color:var(--border-h); }
+    .cert-card:hover::before { transform:scaleX(1); }
+    .cert-card.active-cert { border-color:rgba(34,255,136,.2); }
+    .cert-card.active-cert::after {
+      content:'EARNED'; position:absolute; top:16px; right:16px;
+      font-family:var(--mono); font-size:9px; letter-spacing:2px;
+      color:var(--green); border:1px solid rgba(34,255,136,.3); padding:3px 10px;
+    }
+    .cert-card.planned { border-color:rgba(255,170,34,.1); }
+    .cert-card.planned::after {
+      content:'PLANNED'; position:absolute; top:16px; right:16px;
+      font-family:var(--mono); font-size:9px; letter-spacing:2px;
+      color:var(--yellow); border:1px solid rgba(255,170,34,.3); padding:3px 10px;
+    }
+
+    .cert-abbr {
+      font-family:var(--display); font-size:42px; font-weight:900;
+      color:rgba(255,34,68,.15); line-height:1; margin-bottom:16px; letter-spacing:2px;
+    }
+    .cert-card.active-cert .cert-abbr { color:rgba(34,255,136,.15); }
+    .cert-card.planned .cert-abbr { color:rgba(255,170,34,.1); }
+
+    .cert-name { font-family:var(--display); font-size:17px; font-weight:700; color:#fff; letter-spacing:1px; margin-bottom:8px; }
+    .cert-issuer { font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:2px; margin-bottom:16px; }
+    .cert-desc { font-size:14px; color:var(--muted2); line-height:1.65; }
+
+    .roadmap { display:flex; flex-direction:column; gap:2px; }
+    .roadmap-item {
+      background:var(--bg2); border:1px solid var(--border);
+      padding:20px 28px; display:flex; align-items:center; gap:20px;
+      transition:all .3s;
+    }
+    .roadmap-item:hover { border-color:var(--border-h); background:var(--bg3); }
+    .rm-num { font-family:var(--display); font-size:24px; font-weight:900; color:rgba(255,34,68,.2); min-width:40px; }
+    .rm-name { font-family:var(--mono); font-size:12px; color:var(--text); letter-spacing:2px; }
+    .rm-reason { font-size:13px; color:var(--muted); margin-top:4px; }
+    .rm-status { margin-left:auto; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">INDRAJIT_CHAVAN</a>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="skills.html">SKILLS</a></li>
+    <li><a href="projects.html">PROJECTS</a></li>
+    <li><a href="experience.html">EXPERIENCE</a></li>
+    <li><a href="certs.html">CERTS</a></li>
+    <li><a href="bugbounty.html">BUG BOUNTY</a></li>
+    <li><a href="contact.html">CONTACT</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-status"><span class="status-dot"></span>AVAILABLE_FOR_HIRE</div>
+  </div>
+</nav>
+
+<main class="page-main">
+
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="index.html">HOME</a> <span>/</span> CERTIFICATIONS</div>
+    <h1 class="page-title">SECURITY <span>CLEARANCES</span></h1>
+    <p class="page-subtitle">// EARNED CERTIFICATIONS // CERTIFICATION ROADMAP</p>
+  </div>
+
+  <!-- EARNED -->
+  <section class="content-section">
+    <div class="section-label">// EARNED CERTIFICATIONS</div>
+    <div class="cert-grid">
+
+      <div class="cert-card active-cert reveal">
+        <div class="cert-abbr">CEH</div>
+        <div class="cert-name">Certified Ethical Hacker</div>
+        <div class="cert-issuer">// Sysap Technologies, Pune &nbsp;|&nbsp; EC-Council Curriculum</div>
+        <div class="cert-desc">
+          Covers ethical hacking phases, attack vectors, detection and countermeasures. 
+          Validates skills in reconnaissance, scanning, exploitation, and post-exploitation methodology.
+        </div>
+      </div>
+
+      <div class="cert-card active-cert reveal">
+        <div class="cert-abbr">CCNA</div>
+        <div class="cert-name">Cisco Certified Network Associate</div>
+        <div class="cert-issuer">// Sysap Technologies, Pune &nbsp;|&nbsp; Cisco</div>
+        <div class="cert-desc">
+          Network fundamentals, IP addressing, routing &amp; switching, TCP/IP protocols, 
+          network security basics. Strong foundation for network-level penetration testing.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section class="content-section alt">
+    <div class="section-label">// CERTIFICATION ROADMAP</div>
+    <div class="roadmap">
+      <div class="roadmap-item reveal">
+        <div class="rm-num">01</div>
+        <div>
+          <div class="rm-name">eJPT — eLearnSecurity Junior Penetration Tester</div>
+          <div class="rm-reason">Entry-level practical pentesting. Great first step to validate VAPT skills hands-on.</div>
+        </div>
+        <div class="rm-status"><span class="chip yellow">NEXT TARGET</span></div>
+      </div>
+      <div class="roadmap-item reveal">
+        <div class="rm-num">02</div>
+        <div>
+          <div class="rm-name">OSCP — Offensive Security Certified Professional</div>
+          <div class="rm-reason">Gold standard for penetration testers. Proves hands-on exploitation ability under exam pressure.</div>
+        </div>
+        <div class="rm-status"><span class="chip muted">PLANNED</span></div>
+      </div>
+      <div class="roadmap-item reveal">
+        <div class="rm-num">03</div>
+        <div>
+          <div class="rm-name">BSCP — Burp Suite Certified Practitioner</div>
+          <div class="rm-reason">PortSwigger's official cert. Directly validates web app pentesting skills with Burp Suite.</div>
+        </div>
+        <div class="rm-status"><span class="chip muted">PLANNED</span></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>© 2026 <span>INDRAJIT CHAVAN</span></span>
+  <span>PUNE, INDIA &nbsp;|&nbsp; <span>indrajitchavan7522@gmail.com</span></span>
+</footer>
+<script src="assets/main.js"></script>
+</body>
+</html>

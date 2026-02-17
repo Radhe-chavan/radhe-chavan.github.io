@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skills | Indrajit Chavan</title>
+  <link rel="stylesheet" href="assets/style.css"/>
+  <style>
+    .skills-category { margin-bottom: 64px; }
+
+    .cat-header {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 28px;
+    }
+    .cat-num { font-family:var(--mono); font-size:10px; color:var(--red); letter-spacing:3px; }
+    .cat-title { font-family:var(--display); font-size:18px; font-weight:700; color:#fff; letter-spacing:2px; }
+    .cat-line { flex:1; height:1px; background:linear-gradient(90deg,var(--border-h),transparent); }
+
+    .skill-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:2px; }
+
+    .skill-item {
+      background:var(--bg2); border:1px solid var(--border);
+      padding:24px 28px;
+      position:relative; overflow:hidden;
+      transition:all .3s;
+    }
+    .skill-item::before {
+      content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+      background:var(--red); transform:scaleY(0); transform-origin:bottom; transition:transform .3s;
+    }
+    .skill-item:hover { background:var(--bg3); border-color:var(--border-h); transform:translateX(4px); }
+    .skill-item:hover::before { transform:scaleY(1); }
+
+    .skill-item-name { font-family:var(--mono); font-size:12px; color:var(--red); letter-spacing:2px; margin-bottom:6px; }
+    .skill-item-desc { font-size:14px; color:var(--muted); line-height:1.6; }
+    .skill-bar-wrap { margin-top:14px; height:2px; background:rgba(255,255,255,.05); }
+    .skill-bar {
+      height:100%; background:linear-gradient(90deg,var(--red),#ff6688); position:relative;
+    }
+    .skill-bar::after {
+      content:''; position:absolute; right:0; top:-2px;
+      width:6px; height:6px; border-radius:50%; background:var(--red); box-shadow:0 0 8px var(--red);
+    }
+
+    /* TOOLS GRID */
+    .tools-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:2px; }
+    .tool-item {
+      background:var(--bg2); border:1px solid var(--border);
+      padding:20px 24px;
+      display:flex; align-items:center; gap:14px;
+      transition:all .3s;
+    }
+    .tool-item:hover { background:var(--bg3); border-color:var(--border-h); }
+    .tool-icon { font-size:22px; flex-shrink:0; }
+    .tool-name { font-family:var(--mono); font-size:12px; color:var(--text); letter-spacing:1px; }
+    .tool-type { font-family:var(--mono); font-size:10px; color:var(--muted); margin-top:2px; letter-spacing:1px; }
+
+    @media(max-width:600px){ .skill-grid{grid-template-columns:1fr;} .tools-grid{grid-template-columns:1fr 1fr;} }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">INDRAJIT_CHAVAN</a>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="skills.html">SKILLS</a></li>
+    <li><a href="projects.html">PROJECTS</a></li>
+    <li><a href="experience.html">EXPERIENCE</a></li>
+    <li><a href="certs.html">CERTS</a></li>
+    <li><a href="bugbounty.html">BUG BOUNTY</a></li>
+    <li><a href="contact.html">CONTACT</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-status"><span class="status-dot"></span>AVAILABLE_FOR_HIRE</div>
+  </div>
+</nav>
+
+<main class="page-main">
+
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="index.html">HOME</a> <span>/</span> SKILLS</div>
+    <h1 class="page-title">TECH <span>ARSENAL</span></h1>
+    <p class="page-subtitle">// OFFENSIVE SKILLS // TOOLS // METHODOLOGY</p>
+  </div>
+
+  <section class="content-section">
+
+    <!-- OFFENSIVE SECURITY -->
+    <div class="skills-category">
+      <div class="cat-header">
+        <span class="cat-num">01</span>
+        <span class="cat-title">OFFENSIVE SECURITY</span>
+        <div class="cat-line"></div>
+      </div>
+      <div class="skill-grid">
+        <div class="skill-item reveal">
+          <div class="skill-item-name">SQL INJECTION</div>
+          <div class="skill-item-desc">Union-based, error-based, blind, time-based. Manual and automated (SQLmap). Found in live VAPT engagement.</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div>
+        </div>
+        <div class="skill-item reveal">
+          <div class="skill-item-name">CROSS-SITE SCRIPTING (XSS)</div>
+          <div class="skill-item-desc">Stored, reflected, DOM-based. Filter bypass techniques, payload crafting, context-aware exploitation.</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
+        </div>
+        <div class="skill-item reveal">
+          <div class="skill-item-name">IDOR</div>
+          <div class="skill-item-desc">Insecure Direct Object Reference discovery — horizontal and vertical privilege escalation, parameter tampering.</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:78%"></div></div>
+        </div>
+        <div class="skill-item reveal">
+          <div class="skill-item-name">CSRF / SSRF</div>
+          <div class="skill-item-desc">Cross-Site Request Forgery token bypass, Server-Side Request Forgery for internal network access and data exfiltration.</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:74%"></div></div>
+        </div>
+        <div class="skill-item reveal">
+          <div class="skill-item-name">AUTH BYPASS</div>
+          <div class="skill-item-desc">Broken authentication, JWT manipulation, session fixation, OAuth misconfigurations, MFA bypass techniques.</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:76%"></div></div>
+        </div>
+        <div class="skill-item reveal">
+          <div class="skill-item-name">API SECURITY</div>
+          <div class="skill-item-desc">REST API testing, authentication flaws, mass assignment, excessive data exposure, rate limiting bypass.</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECON & ENUMERATION -->
+    <div class="skills-category">
+      <div class="cat-header">
+        <span class="cat-num">02</span>
+        <span class="cat-title">RECON &amp; ENUMERATION</span>
+        <div class="cat-line"></div>
+      </div>
+      <div class="skill-grid">
+        <div class="skill-item reveal">
+          <div class="skill-item-name">NETWORK SCANNING</div>
+          <div class="skill-item-desc">Nmap port scanning, OS fingerprinting, NSE scripting, service version detection, firewall evasion techniques.</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:82%"></div></div>
+        </div>
+        <div class="skill-item reveal">
+          <div class="skill-item-name">OSINT</div>
+          <div class="skill-item-desc">Open-source intelligence gathering — DNS enum, subdomain discovery, certificate transparency, Shodan, social engineering recon.</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div>
+        </div>
+        <div class="skill-item reveal">
+          <div class="skill-item-name">WEB RECON</div>
+          <div class="skill-item-desc">Directory busting (Gobuster), subdomain enum (ProjectDiscovery PDTM), JS file analysis, hidden endpoint discovery.</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:78%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DEFENSIVE / SIEM -->
+    <div class="skills-category">
+      <div class="cat-header">
+        <span class="cat-num">03</span>
+        <span class="cat-title">SIEM &amp; INCIDENT RESPONSE</span>
+        <div class="cat-line"></div>
+      </div>
+      <div class="skill-grid">
+        <div class="skill-item reveal">
+          <div class="skill-item-name">WAZUH SIEM</div>
+          <div class="skill-item-desc">Threat detection, security event monitoring, log correlation, rule-based alerting, active response configuration.</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:72%"></div></div>
+        </div>
+        <div class="skill-item reveal">
+          <div class="skill-item-name">LOG ANALYSIS</div>
+          <div class="skill-item-desc">Security event investigation, alert triage, log correlation across systems, identifying indicators of compromise.</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div>
+        </div>
+        <div class="skill-item reveal">
+          <div class="skill-item-name">THREAT ANALYSIS</div>
+          <div class="skill-item-desc">Risk assessment, security auditing, configuration reviews, vulnerability prioritisation, remediation planning.</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:68%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPTING -->
+    <div class="skills-category">
+      <div class="cat-header">
+        <span class="cat-num">04</span>
+        <span class="cat-title">SCRIPTING &amp; AUTOMATION</span>
+        <div class="cat-line"></div>
+      </div>
+      <div class="skill-grid">
+        <div class="skill-item reveal">
+          <div class="skill-item-name">PYTHON</div>
+          <div class="skill-item-desc">Automation scripts, recon pipelines, CVE mappers, custom tooling, socket programming, API integrations.</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:68%"></div></div>
+        </div>
+        <div class="skill-item reveal">
+          <div class="skill-item-name">BASH</div>
+          <div class="skill-item-desc">Shell scripting for automation, recon pipelines, one-liners for enumeration and data processing.</div>
+          <div class="skill-bar-wrap"><div class="skill-bar" style="width:65%"></div></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- TOOLS -->
+  <section class="content-section alt">
+    <div class="section-label">// TOOLS USED</div>
+    <div class="tools-grid">
+      <div class="tool-item reveal"><span class="tool-icon">🔥</span><div><div class="tool-name">Burp Suite</div><div class="tool-type">WEB PROXY</div></div></div>
+      <div class="tool-item reveal"><span class="tool-icon">🗺</span><div><div class="tool-name">Nmap</div><div class="tool-type">NETWORK SCAN</div></div></div>
+      <div class="tool-item reveal"><span class="tool-icon">💉</span><div><div class="tool-name">SQLMap</div><div class="tool-type">SQLI TOOL</div></div></div>
+      <div class="tool-item reveal"><span class="tool-icon">🐉</span><div><div class="tool-name">Metasploit</div><div class="tool-type">FRAMEWORK</div></div></div>
+      <div class="tool-item reveal"><span class="tool-icon">🔍</span><div><div class="tool-name">OWASP ZAP</div><div class="tool-type">WEB SCANNER</div></div></div>
+      <div class="tool-item reveal"><span class="tool-icon">📁</span><div><div class="tool-name">Gobuster</div><div class="tool-type">DIR BUSTER</div></div></div>
+      <div class="tool-item reveal"><span class="tool-icon">🛡</span><div><div class="tool-name">Wazuh</div><div class="tool-type">SIEM</div></div></div>
+      <div class="tool-item reveal"><span class="tool-icon">🌐</span><div><div class="tool-name">PDTM Suite</div><div class="tool-type">RECON</div></div></div>
+      <div class="tool-item reveal"><span class="tool-icon">🔎</span><div><div class="tool-name">Nikto</div><div class="tool-type">WEB SCANNER</div></div></div>
+      <div class="tool-item reveal"><span class="tool-icon">🐍</span><div><div class="tool-name">Python</div><div class="tool-type">SCRIPTING</div></div></div>
+      <div class="tool-item reveal"><span class="tool-icon">💻</span><div><div class="tool-name">Wireshark</div><div class="tool-type">PACKET ANALYSIS</div></div></div>
+      <div class="tool-item reveal"><span class="tool-icon">🏴</span><div><div class="tool-name">Kali Linux</div><div class="tool-type">OS</div></div></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>© 2026 <span>INDRAJIT CHAVAN</span></span>
+  <span>PUNE, INDIA &nbsp;|&nbsp; <span>indrajitchavan7522@gmail.com</span></span>
+</footer>
+<script src="assets/main.js"></script>
+</body>
+</html>
