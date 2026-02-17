@@ -30,6 +30,7 @@
       font-weight: 900; line-height: .9;
       letter-spacing: -2px; color: #fff;
       opacity: 0; animation: fadeUp .6s .4s ease forwards;
+      transition: transform 0.05s ease;
     }
     .hero-name em { color: var(--red); font-style: normal;
       text-shadow: 0 0 40px var(--red-glow), 0 0 80px var(--red-glow); }
@@ -169,7 +170,7 @@
   <section class="hero">
     <div class="hero-inner">
       <p class="hero-eyebrow">PENETRATION TESTER // BUG BOUNTY RESEARCHER // CEH</p>
-      <h1 class="hero-name">INDRAJIT<br/><em>CHAVAN</em></h1>
+      <h1 class="hero-name" id="glitchName">INDRAJIT<br/><em>CHAVAN</em></h1>
       <p class="hero-tagline">
         <b>//</b> VAPT &nbsp;|&nbsp; WEB APP SECURITY &nbsp;|&nbsp; SIEM &nbsp;|&nbsp; BUG BOUNTY
       </p>
@@ -258,31 +259,33 @@
   <span>© 2026 <span>INDRAJIT CHAVAN</span> // ALL SYSTEMS OPERATIONAL</span>
   <span>PUNE, INDIA &nbsp;|&nbsp; <span>indrajitchavan7522@gmail.com</span></span>
 </footer>
+
 <script src="assets/main.js"></script>
 <script>
-  // GLITCH EFFECT ON NAME
-  const name = document.querySelector('.hero-name');
-  
+  const name = document.getElementById('glitchName');
+
   function triggerGlitch() {
-    const glitchSteps = [
-      () => { name.style.textShadow = '3px 0 #ff2244, -3px 0 #00ffff'; name.style.transform = 'skewX(-2deg)'; },
-      () => { name.style.textShadow = '-4px 0 #ff2244, 4px 0 #00ffff'; name.style.transform = 'skewX(2deg) translateX(3px)'; },
-      () => { name.style.textShadow = '2px 0 #00ffff, -2px 0 #ff2244'; name.style.transform = 'skewX(0) translateX(-2px)'; },
-      () => { name.style.textShadow = ''; name.style.transform = ''; }
+    // 6 rapid steps at 30ms each = full glitch in 180ms — fast but visible
+    const steps = [
+      () => { name.style.textShadow = '4px 0 #ff2244, -4px 0 #00ffff'; name.style.transform = 'skewX(-3deg) translateX(3px)'; name.style.opacity = '0.85'; },
+      () => { name.style.textShadow = '-3px 0 #ff2244, 3px 0 #00ffff'; name.style.transform = 'skewX(2deg) translateX(-4px)'; name.style.opacity = '1'; },
+      () => { name.style.textShadow = '5px 0 #00ffff, -5px 0 #ff2244'; name.style.transform = 'skewX(-1deg) translateX(2px)'; name.style.opacity = '0.9'; },
+      () => { name.style.textShadow = '-2px 0 #00ffff, 2px 0 #ff2244'; name.style.transform = 'skewX(1deg) translateX(-1px)'; name.style.opacity = '1'; },
+      () => { name.style.textShadow = '2px 0 #ff2244, -2px 0 #00ffff'; name.style.transform = 'skewX(0) translateX(1px)'; name.style.opacity = '0.95'; },
+      () => { name.style.textShadow = ''; name.style.transform = ''; name.style.opacity = '1'; }
     ];
 
-    glitchSteps.forEach((step, i) => {
-      setTimeout(step, i * 60);
-    });
+    steps.forEach((step, i) => setTimeout(step, i * 30));
   }
 
-  // Trigger on hover
+  // Hover trigger
   name.addEventListener('mouseenter', triggerGlitch);
 
-  // Auto trigger every few seconds for "wow" effect
-  setInterval(triggerGlitch, 4000);
+  // Auto glitch — first one at 2s, then every 2.5s
+  setTimeout(() => {
+    triggerGlitch();
+    setInterval(triggerGlitch, 2500);
+  }, 2000);
 </script>
-</body>
-</html>
 </body>
 </html>
