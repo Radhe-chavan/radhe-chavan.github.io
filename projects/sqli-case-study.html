@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SQL Injection Case Study | Indrajit Chavan</title>
+  <link rel="stylesheet" href="../assets/style.css"/>
+  <style>
+    .article-layout { display:grid; grid-template-columns:1fr 320px; gap:2px; align-items:start; }
+
+    .article-body { display:flex; flex-direction:column; gap:2px; }
+
+    .article-section {
+      background:var(--bg2); border:1px solid var(--border); padding:36px 40px;
+    }
+
+    .a-h2 { font-family:var(--display); font-size:18px; font-weight:700; color:#fff; letter-spacing:2px; margin-bottom:20px; padding-bottom:12px; border-bottom:1px solid var(--border); }
+    .a-p  { font-size:15px; color:var(--muted2); line-height:1.85; margin-bottom:16px; }
+    .a-p:last-child { margin-bottom:0; }
+
+    .code-block {
+      background:rgba(0,0,0,.5); border:1px solid rgba(255,34,68,.15);
+      border-left:3px solid var(--red);
+      padding:20px 24px; font-family:var(--mono); font-size:12px;
+      color:#e8e8f0; line-height:1.9; overflow-x:auto; margin:16px 0;
+    }
+    .code-block .cm { color:var(--muted); }
+    .code-block .ck { color:var(--red); }
+    .code-block .cv { color:#22ff88; }
+    .code-block .cs { color:#ffaa22; }
+
+    .impact-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin:16px 0; }
+    .impact-item {
+      background:rgba(0,0,0,.3); border:1px solid var(--border); padding:16px 20px;
+    }
+    .impact-label { font-family:var(--mono); font-size:10px; color:var(--red); letter-spacing:2px; margin-bottom:6px; }
+    .impact-val { font-size:14px; color:var(--text); }
+
+    /* SIDEBAR */
+    .article-sidebar { display:flex; flex-direction:column; gap:2px; position:sticky; top:80px; }
+
+    .sidebar-card {
+      background:var(--bg2); border:1px solid var(--border); padding:24px 28px;
+    }
+    .sidebar-title { font-family:var(--mono); font-size:10px; color:var(--red); letter-spacing:3px; margin-bottom:16px; }
+    .sidebar-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid var(--border); font-size:13px; }
+    .sidebar-row:last-child { border-bottom:none; }
+    .sidebar-key { color:var(--muted); font-family:var(--mono); font-size:11px; letter-spacing:1px; }
+    .sidebar-val { color:var(--text); font-family:var(--mono); font-size:11px; }
+
+    .toc-link { display:block; font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:1px; padding:7px 0; border-bottom:1px solid var(--border); text-decoration:none; transition:color .2s; }
+    .toc-link:last-child { border-bottom:none; }
+    .toc-link:hover { color:var(--red); }
+    .toc-link::before { content:'→ '; }
+
+    @media(max-width:900px){ .article-layout{grid-template-columns:1fr;} .article-sidebar{position:static;} .impact-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">INDRAJIT_CHAVAN</a>
+  <ul class="nav-links">
+    <li><a href="../index.html">HOME</a></li>
+    <li><a href="../skills.html">SKILLS</a></li>
+    <li><a href="../projects.html">PROJECTS</a></li>
+    <li><a href="../experience.html">EXPERIENCE</a></li>
+    <li><a href="../certs.html">CERTS</a></li>
+    <li><a href="../bugbounty.html">BUG BOUNTY</a></li>
+    <li><a href="../contact.html">CONTACT</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-status"><span class="status-dot"></span>AVAILABLE_FOR_HIRE</div>
+  </div>
+</nav>
+
+<main class="page-main">
+
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="../index.html">HOME</a> <span>/</span> <a href="../projects.html">PROJECTS</a> <span>/</span> SQL INJECTION</div>
+    <h1 class="page-title">SQL INJECTION: <span>LAB TO REAL WORLD</span></h1>
+    <p class="page-subtitle">// PORTSWIGGER LABS → LIVE VAPT ENGAGEMENT // MANUAL EXPLOITATION</p>
+    <div class="chips" style="margin-top:20px;">
+      <span class="chip">SQL INJECTION</span>
+      <span class="chip">MANUAL EXPLOIT</span>
+      <span class="chip">BURP SUITE</span>
+      <span class="chip">SQLMAP</span>
+      <span class="chip">VAPT</span>
+      <span class="chip yellow">IN PROGRESS</span>
+    </div>
+  </div>
+
+  <section class="content-section">
+    <div class="article-layout">
+
+      <!-- BODY -->
+      <div class="article-body">
+
+        <div class="article-section reveal">
+          <div class="a-h2">01 — INTRODUCTION</div>
+          <p class="a-p">SQL Injection remains one of the most critical and prevalent web application vulnerabilities, consistently featuring in the OWASP Top 10. It occurs when user-supplied input is not properly sanitised before being included in SQL queries, allowing an attacker to manipulate the database logic.</p>
+          <p class="a-p">This writeup documents my journey from completing PortSwigger Web Security Academy SQLi labs to identifying and exploiting a real SQL Injection vulnerability during a professional VAPT engagement. All client details are anonymised.</p>
+        </div>
+
+        <div class="article-section reveal">
+          <div class="a-h2">02 — LAB PRACTICE (PORTSWIGGER)</div>
+          <p class="a-p">Before moving to real-world testing, I completed the full SQL Injection learning path on PortSwigger Web Security Academy. Key lab types practiced:</p>
+          <p class="a-p"><strong style="color:var(--text);">UNION-Based SQLi</strong> — Extracting data from other tables by appending UNION SELECT statements to the original query.</p>
+          <div class="code-block">
+<span class="cm">-- Determine number of columns</span>
+<span class="ck">GET</span> /products?category=<span class="cv">Gifts'+ORDER+BY+3--</span>
+
+<span class="cm">-- Extract data with UNION</span>
+<span class="ck">GET</span> /products?category=<span class="cv">'+UNION+SELECT+username,password+FROM+users--</span>
+          </div>
+          <p class="a-p"><strong style="color:var(--text);">Blind SQLi (Boolean-Based)</strong> — No direct output visible. Infer data by crafting conditions that change application behaviour.</p>
+          <div class="code-block">
+<span class="cm">-- True condition (normal response)</span>
+<span class="ck">GET</span> /products?id=<span class="cv">1'+AND+1=1--</span>
+
+<span class="cm">-- False condition (empty/error response)</span>
+<span class="ck">GET</span> /products?id=<span class="cv">1'+AND+1=2--</span>
+          </div>
+          <p class="a-p"><strong style="color:var(--text);">Time-Based Blind SQLi</strong> — No visible difference in response. Use database sleep functions to infer data character by character.</p>
+          <div class="code-block">
+<span class="cm">-- PostgreSQL</span>
+<span class="ck">GET</span> /products?id=<span class="cv">1';SELECT+CASE+WHEN+(1=1)+THEN+pg_sleep(5)+ELSE+pg_sleep(0)+END--</span>
+          </div>
+        </div>
+
+        <div class="article-section reveal">
+          <div class="a-h2">03 — REAL-WORLD CASE STUDY (ANONYMISED)</div>
+          <p class="a-p">During a VAPT engagement for a client in the <strong style="color:var(--text);">financial services sector</strong>, I was testing a web application login and search functionality.</p>
+          <p class="a-p"><strong style="color:var(--text);">Discovery:</strong> While intercepting requests in Burp Suite, I noticed a <code style="color:var(--red);font-family:var(--mono);">search</code> parameter being passed directly to a database query. Inserting a single quote (<code style="color:var(--red);font-family:var(--mono);">'</code>) caused a verbose error, confirming unsanitised input.</p>
+          <div class="code-block">
+<span class="cm">-- Error-based confirmation</span>
+<span class="ck">POST</span> /api/search
+<span class="cs">Content-Type: application/json</span>
+
+{ "query": <span class="cv">"test'"</span> }
+
+<span class="cm">-- Response: You have an error in your SQL syntax...</span>
+          </div>
+          <p class="a-p"><strong style="color:var(--text);">Exploitation:</strong> After manual confirmation, I used UNION-based injection to enumerate the database structure and extract table names.</p>
+          <div class="code-block">
+<span class="cm">-- Determine columns</span>
+<span class="cv">test' ORDER BY 4--</span>   <span class="cm">← Error</span>
+<span class="cv">test' ORDER BY 3--</span>   <span class="cm">← No error → 3 columns</span>
+
+<span class="cm">-- Extract table names</span>
+<span class="cv">test' UNION SELECT table_name,NULL,NULL FROM information_schema.tables--</span>
+          </div>
+        </div>
+
+        <div class="article-section reveal">
+          <div class="a-h2">04 — BUSINESS IMPACT</div>
+          <div class="impact-grid">
+            <div class="impact-item">
+              <div class="impact-label">SEVERITY</div>
+              <div class="impact-val">Critical (CVSS 9.8)</div>
+            </div>
+            <div class="impact-item">
+              <div class="impact-label">ATTACK VECTOR</div>
+              <div class="impact-val">Network / Unauthenticated</div>
+            </div>
+            <div class="impact-item">
+              <div class="impact-label">CONFIDENTIALITY</div>
+              <div class="impact-val">Full DB compromise possible</div>
+            </div>
+            <div class="impact-item">
+              <div class="impact-label">DATA AT RISK</div>
+              <div class="impact-val">User credentials, PII, records</div>
+            </div>
+          </div>
+          <p class="a-p">This vulnerability could allow an unauthenticated attacker to extract the complete database, including user credentials and sensitive business data. In a financial context, this represents regulatory risk (data breach notification), reputational damage, and potential financial liability.</p>
+        </div>
+
+        <div class="article-section reveal">
+          <div class="a-h2">05 — REMEDIATION</div>
+          <p class="a-p"><strong style="color:var(--text);">1. Parameterised Queries (Primary Fix)</strong></p>
+          <div class="code-block">
+<span class="cm">// Vulnerable</span>
+<span class="ck">String</span> query = <span class="cv">"SELECT * FROM users WHERE name = '"</span> + userInput + <span class="cv">"'"</span>;
+
+<span class="cm">// Fixed — Parameterised</span>
+<span class="ck">PreparedStatement</span> stmt = conn.prepareStatement(<span class="cv">"SELECT * FROM users WHERE name = ?"</span>);
+stmt.setString(<span class="cs">1</span>, userInput);
+          </div>
+          <p class="a-p"><strong style="color:var(--text);">2. Input Validation</strong> — Whitelist expected characters. Reject or sanitise unexpected input server-side.</p>
+          <p class="a-p"><strong style="color:var(--text);">3. Least Privilege</strong> — Database user should have minimum required permissions. No SELECT on sensitive tables unless required.</p>
+          <p class="a-p"><strong style="color:var(--text);">4. WAF Layer</strong> — Web Application Firewall as defence-in-depth, not primary mitigation.</p>
+        </div>
+
+        <div class="article-section reveal">
+          <div class="a-h2">06 — KEY TAKEAWAYS</div>
+          <p class="a-p">Manual testing found what the automated scanner missed — the search endpoint was not crawled by the scanner due to JavaScript-rendered content. This highlights the importance of manual testing alongside automation.</p>
+          <p class="a-p">Always verify automated findings manually. Understand <em style="color:var(--text);">why</em> payloads work — the DB type, query structure, and context all affect exploitation strategy and remediation.</p>
+        </div>
+
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="article-sidebar">
+
+        <div class="sidebar-card reveal">
+          <div class="sidebar-title">// ENGAGEMENT DETAILS</div>
+          <div class="sidebar-row"><span class="sidebar-key">SECTOR</span><span class="sidebar-val">Financial Services</span></div>
+          <div class="sidebar-row"><span class="sidebar-key">TYPE</span><span class="sidebar-val">Web App VAPT</span></div>
+          <div class="sidebar-row"><span class="sidebar-key">SEVERITY</span><span class="sidebar-val" style="color:var(--red)">Critical</span></div>
+          <div class="sidebar-row"><span class="sidebar-key">CVSS</span><span class="sidebar-val">9.8</span></div>
+          <div class="sidebar-row"><span class="sidebar-key">DB TYPE</span><span class="sidebar-val">MySQL</span></div>
+          <div class="sidebar-row"><span class="sidebar-key">STATUS</span><span class="sidebar-val" style="color:var(--green)">Resolved</span></div>
+        </div>
+
+        <div class="sidebar-card reveal">
+          <div class="sidebar-title">// TABLE OF CONTENTS</div>
+          <a href="#" class="toc-link">Introduction</a>
+          <a href="#" class="toc-link">Lab Practice</a>
+          <a href="#" class="toc-link">Real-World Case Study</a>
+          <a href="#" class="toc-link">Business Impact</a>
+          <a href="#" class="toc-link">Remediation</a>
+          <a href="#" class="toc-link">Key Takeaways</a>
+        </div>
+
+        <div class="sidebar-card reveal">
+          <div class="sidebar-title">// TOOLS USED</div>
+          <div class="chips">
+            <span class="chip">Burp Suite</span>
+            <span class="chip">SQLMap</span>
+            <span class="chip">Manual Testing</span>
+            <span class="chip">PortSwigger</span>
+          </div>
+        </div>
+
+        <a href="../projects.html" class="btn btn-outline" style="margin-top:2px;justify-content:center;">← Back to Projects</a>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>© 2026 <span>INDRAJIT CHAVAN</span></span>
+  <span>PUNE, INDIA &nbsp;|&nbsp; <span>indrajitchavan7522@gmail.com</span></span>
+</footer>
+<script src="../assets/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Experience | Indrajit Chavan</title>
+  <link rel="stylesheet" href="assets/style.css"/>
+  <style>
+    .timeline { position:relative; padding-left:48px; }
+    .timeline::before {
+      content:''; position:absolute; left:0; top:0; bottom:0; width:1px;
+      background:linear-gradient(180deg,var(--red),rgba(255,34,68,.1));
+    }
+
+    .tl-item { position:relative; margin-bottom:56px; }
+    .tl-item::before {
+      content:''; position:absolute; left:-52px; top:10px;
+      width:8px; height:8px; border-radius:50%;
+      background:var(--red); box-shadow:0 0 12px var(--red);
+    }
+    .tl-item::after {
+      content:''; position:absolute; left:-58px; top:4px;
+      width:20px; height:20px; border-radius:50%;
+      border:1px solid rgba(255,34,68,.25);
+      animation:pulse 2s ease-in-out infinite;
+    }
+
+    .tl-date { font-family:var(--mono); font-size:11px; color:var(--red); letter-spacing:3px; margin-bottom:10px; }
+    .tl-role { font-family:var(--display); font-size:22px; font-weight:700; color:#fff; letter-spacing:1px; }
+    .tl-company { font-family:var(--mono); font-size:12px; color:var(--muted); letter-spacing:2px; margin:8px 0 20px; }
+
+    .tl-points { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .tl-points li {
+      font-size:15px; color:var(--muted2); padding-left:28px;
+      position:relative; line-height:1.7;
+    }
+    .tl-points li::before {
+      content:'//'; position:absolute; left:0; top:2px;
+      color:rgba(255,34,68,.45); font-family:var(--mono); font-size:11px;
+    }
+    .tl-points li strong { color:var(--text); font-weight:600; }
+
+    .edu-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:2px; }
+    .edu-card {
+      background:var(--bg2); border:1px solid var(--border);
+      padding:28px 32px; transition:all .3s;
+    }
+    .edu-card:hover { border-color:var(--border-h); background:var(--bg3); }
+    .edu-year { font-family:var(--mono); font-size:10px; color:var(--red); letter-spacing:3px; margin-bottom:10px; }
+    .edu-degree { font-family:var(--display); font-size:16px; font-weight:700; color:#fff; margin-bottom:6px; letter-spacing:1px; }
+    .edu-inst { font-family:var(--mono); font-size:11px; color:var(--muted); letter-spacing:2px; }
+    .edu-grade { font-family:var(--mono); font-size:11px; color:var(--green); margin-top:8px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">INDRAJIT_CHAVAN</a>
+  <ul class="nav-links">
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="skills.html">SKILLS</a></li>
+    <li><a href="projects.html">PROJECTS</a></li>
+    <li><a href="experience.html">EXPERIENCE</a></li>
+    <li><a href="certs.html">CERTS</a></li>
+    <li><a href="bugbounty.html">BUG BOUNTY</a></li>
+    <li><a href="contact.html">CONTACT</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-status"><span class="status-dot"></span>AVAILABLE_FOR_HIRE</div>
+  </div>
+</nav>
+
+<main class="page-main">
+
+  <div class="page-hero">
+    <div class="breadcrumb"><a href="index.html">HOME</a> <span>/</span> EXPERIENCE</div>
+    <h1 class="page-title">FIELD <span>ENGAGEMENTS</span></h1>
+    <p class="page-subtitle">// PROFESSIONAL EXPERIENCE // EDUCATION</p>
+  </div>
+
+  <!-- PROFESSIONAL -->
+  <section class="content-section">
+    <div class="section-label">// PROFESSIONAL HISTORY</div>
+
+    <div class="timeline">
+
+      <div class="tl-item reveal">
+        <div class="tl-date">MAY 2025 — PRESENT &nbsp;|&nbsp; 9+ MONTHS</div>
+        <div class="tl-role">Security Analyst</div>
+        <div class="tl-company">// Nio Stars Technologies LLP — Pune, Maharashtra</div>
+        <ul class="tl-points">
+          <li>Perform <strong>VAPT on web applications, networks, APIs, and internal systems</strong> using OWASP and PTES methodologies</li>
+          <li>Monitor and analyze security events using <strong>Wazuh SIEM</strong> to identify threats and support active incident response</li>
+          <li>Investigate security alerts, conduct log analysis, and assist in remediation across development and infrastructure teams</li>
+          <li>Document all findings with <strong>detailed proof-of-concepts (PoC), CVSS scoring</strong>, and clear remediation guidance</li>
+          <li>Conduct security audits, risk assessments, and configuration reviews to strengthen organisational security posture</li>
+          <li>Collaborate with cross-functional teams to ensure <strong>secure development practices</strong> and timely vulnerability mitigation</li>
+          <li>Contribute to improving internal security processes, policies, and automation workflows</li>
+        </ul>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-date">ONGOING — FREELANCE</div>
+        <div class="tl-role">Bug Bounty Researcher</div>
+        <div class="tl-company">// Public &amp; Private Bug Bounty Programs</div>
+        <ul class="tl-points">
+          <li>Reported <strong>valid vulnerabilities</strong> through public and private programs with responsible disclosure</li>
+          <li>Specialised in discovering <strong>XSS, SQLi, IDOR, SSRF, and authentication bypass</strong> vulnerabilities</li>
+          <li>Full engagement lifecycle: reconnaissance → payload crafting → exploitation → PoC → responsible disclosure</li>
+          <li>Gained real-world exposure to modern web security attack vectors and practical exploitation methods</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="content-section alt">
+    <div class="section-label">// EDUCATION</div>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-year">2020 — 2023</div>
+        <div class="edu-degree">Bachelor in Computer Science</div>
+        <div class="edu-inst">// Balwant College, Vita<br/>Shivaji University</div>
+        <div class="edu-grade">75%</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-year">2020</div>
+        <div class="edu-degree">HSC — Science</div>
+        <div class="edu-inst">// Y.C.M, Ghoti BK, Tasgaon</div>
+        <div class="edu-grade">54%</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-year">2018</div>
+        <div class="edu-degree">SSC</div>
+        <div class="edu-inst">// Vidyaniketan</div>
+        <div class="edu-grade">85.40%</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>© 2026 <span>INDRAJIT CHAVAN</span></span>
+  <span>PUNE, INDIA &nbsp;|&nbsp; <span>indrajitchavan7522@gmail.com</span></span>
+</footer>
+<script src="assets/main.js"></script>
+</body>
+</html>
